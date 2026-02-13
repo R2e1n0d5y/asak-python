@@ -250,5 +250,5 @@ def cek_akurasi_cnn():
 if __name__ == "__main__":
     # Server akan memberikan port secara dinamis, jika tidak ada pakai 5000
     import os
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 7860))
     app.run(host="0.0.0.0", port=port)

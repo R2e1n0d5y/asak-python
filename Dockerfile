@@ -4,23 +4,24 @@ FROM python:3.9-slim
 # Set working directory di dalam container
 WORKDIR /app
 
-# Instal dependensi sistem untuk OpenCV dan pendukung lainnya
+# Instal dependensi sistem untuk OpenCV
+# Menggunakan libgl1 dan libglib2.0-0 sebagai pengganti paket lama
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy file requirements dulu agar bisa memanfaatkan cache Docker
+# Copy file requirements dulu
 COPY requirements.txt .
 
 # Instal library python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy seluruh kode aplikasi dan folder model/assets ke dalam container
+# Copy seluruh kode aplikasi
 COPY . .
 
-# Ekspos port yang digunakan Flask (default 5000)
+# Ekspos port Flask
 EXPOSE 5000
 
-# Jalankan aplikasi menggunakan Gunicorn untuk stabilitas produksi
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# Ganti port ke 7860 agar dikenali Hugging Face
+CMD ["gunicorn", "--bind", "0.0.0.0:7860", "app:app", "--timeout", "120"]
