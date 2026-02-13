@@ -54,10 +54,6 @@ typing_extensions==4.15.0
 urllib3==2.6.3
 Werkzeug==3.0.1
 wrapt==1.14.2
-
 opencv-python-headless
-scikit-image
-tensorflow==2.15.0
-keras==2.15.0
 gunicorn
 
